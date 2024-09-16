@@ -31,6 +31,9 @@ function addBall(ball) {
 }
 
 // TODO: Implement more functions
+function insertBallAfter(node, ball) {
+    return list.insertAfter(ball, node);
+}
 
 function numberOfBalls() {
     return list.size();
@@ -48,8 +51,33 @@ function getCannonBall() {
 }
 
 // **** MATCHES ****
-
 // TODO: Implement functions to find and remove matches
+function checkMatches(node) {
+    const matches = [node];
+    // find matches før node
+
+    let lookat = node.prev;
+    while (lookat && lookat.data == node.data) {
+        matches.push(lookat);
+        lookat = lookat.prev;
+    }
+
+    // find matches efter node
+    lookat = node.next;
+
+    while (lookat && lookat.data == node.data) {
+        matches.push(lookat);
+        lookat = lookat.prev;
+    }
+
+    return matches;
+}
+
+function removeMatches(matches) {
+    for (const node of matches) {
+        list.remove(node);
+    }
+}
 
 // **** BALLS ****
 
@@ -76,4 +104,4 @@ function green() {
 }
 
 // Husk at fjern
-debugger;
+//debugger;
