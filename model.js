@@ -1,80 +1,79 @@
 import SimpleLinkedList from "./simplelinkedlist.js";
 
-export {init}
+export { init };
 
 const list = new SimpleLinkedList();
 
 function init() {
-  console.log("Model init");
-
+    console.log("Model init");
 }
 
 function dump() {
-  let node = list.head;
-  let output = "";
-  while(node != null) {
-    output += '"' + node.data + node.id +'"';
-    output += " -> ";
-   
-    node = node.next;
-  }
-  output += "null";
-  console.log(output);
+    let node = list.head;
+    let output = "";
+    while (node != null) {
+        output += '"' + node.data + node.id + '"';
+        output += " -> ";
+
+        node = node.next;
+    }
+    output += "null";
+    console.log(output);
 }
 
 // **** WRAPPERS ****
 function addRandomBall() {
-  // TODO: Implement
+    list.add(randomBall());
 }
 
 function addBall(ball) {
-  // TODO: Implement
+    list.add(ball);
 }
 
 // TODO: Implement more functions
 
 function numberOfBalls() {
-  // TODO: Implement
+    return list.size();
 }
 
 // **** CANNON ****
 let cannonBall;
 
 function loadCannon() {
-  cannonBall = randomBall();
+    cannonBall = randomBall();
 }
 
 function getCannonBall() {
-  return cannonBall;
+    return cannonBall;
 }
 
 // **** MATCHES ****
 
 // TODO: Implement functions to find and remove matches
 
-
 // **** BALLS ****
 
-const balls = ["🔴", "🔵","🟡","🟢"];
+const balls = ["🔴", "🔵", "🟡", "🟢"];
 
 function randomBall() {
-  return balls[Math.floor(Math.random()*balls.length)];
+    return balls[Math.floor(Math.random() * balls.length)];
 }
 
 function red() {
-  return balls[0];
+    return balls[0];
 }
 
 function blue() {
-  return balls[1];
+    return balls[1];
 }
 
 function yellow() {
-  return balls[2];
+    return balls[2];
 }
 
 function green() {
-  return balls[3];
+    return balls[3];
 }
 
+// Husk at fjern
 debugger;
