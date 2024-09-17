@@ -1,6 +1,23 @@
 import SimpleLinkedList from "./simplelinkedlist.js";
 
-export { init };
+export {
+    init,
+    red,
+    blue,
+    green,
+    yellow,
+    loadCannon,
+    dump,
+    addBall,
+    checkMatches,
+    removeMatches,
+    numberOfBalls,
+    getFirstBall,
+    getNextBall,
+    getCannonBall,
+    insertBallAfter,
+    addRandomBall,
+};
 
 const list = new SimpleLinkedList();
 
@@ -31,6 +48,15 @@ function addBall(ball) {
 }
 
 // TODO: Implement more functions
+
+function getFirstBall() {
+    return list.head;
+}
+
+function getNextBall(ball) {
+    return ball.next;
+}
+
 function insertBallAfter(node, ball) {
     return list.insertAfter(ball, node);
 }
@@ -64,10 +90,9 @@ function checkMatches(node) {
 
     // find matches efter node
     lookat = node.next;
-
     while (lookat && lookat.data == node.data) {
         matches.push(lookat);
-        lookat = lookat.prev;
+        lookat = lookat.next;
     }
 
     return matches;
