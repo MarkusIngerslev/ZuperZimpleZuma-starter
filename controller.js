@@ -30,8 +30,14 @@ function createInitialChain() {
 
 // Controller funktions for thing happening in view
 function addNewBall() {
-    model.addRandomBall();
+    // Add a new ball to the chain
+    const newBallNode = model.addRandomBall();
+
+    // Update the display
     view.updateDisplay(model);
+
+    // Animate the new ball
+    return newBallNode;
 }
 
 function insertCannonBallAfter(ballNode) {
@@ -53,6 +59,8 @@ function insertCannonBallAfter(ballNode) {
 
     // Update the display
     view.updateDisplay(model);
+
+    return newCannonBallNode;
 }
 
 // **** ANIMATIONS ****

@@ -1,6 +1,6 @@
 import * as controller from "./controller.js";
 import { animateNewBall } from "./animations.js";
-export { animateNewBall, init, updateDisplay, getVisualBallForModelNode };
+export { init, updateDisplay, getVisualBallForModelNode };
 
 // *********************************
 // *                               *
@@ -15,7 +15,9 @@ function init() {
 
 function addNewBall() {
     console.log("View clicked add new ball");
-    controller.addNewBall();
+    const newBallNode = controller.addNewBall();
+
+    animateNewBall(window.model, newBallNode);
 }
 
 const visualBalls = {
@@ -49,6 +51,7 @@ function updateDisplay(model) {
         // add button next to ball
         addButtonTo(visualBall, ballNode);
 
+        // Store reference between model node and visual ball
         nodeToVisualBall.set(ballNode, visualBall);
 
         ballNode = model.getNextBall(ballNode);
@@ -80,7 +83,6 @@ function addButtonTo(visualBall, ballModel) {
     // handle click
     button.addEventListener("click", () => {
         console.log(`Clicked button after ${ballModel.data}`);
-        //console.log(ballModel);
         controller.insertCannonBallAfter(ballModel);
     });
 }

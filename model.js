@@ -40,11 +40,11 @@ function dump() {
 
 // **** WRAPPERS ****
 function addRandomBall() {
-    list.add(randomBall());
+    return list.add(randomBall());
 }
 
 function addBall(ball) {
-    list.add(ball);
+    return list.add(ball);
 }
 
 function getFirstBall() {

@@ -20,14 +20,23 @@ function animateNewBall(model, newBall) {
     const onlyImg = visualBall.firstElementChild;
 
     // First: - position to start from - somewhere just outside the screen
+    const chain = document.querySelector("#chain");
+    const chainRect = chain.getBoundingClientRect();
+    const startX = chainRect.right;
 
     // Last: - position to end - the current position of the visualBall
+    const ballRect = visualBall.getBoundingClientRect();
+    const endX = ballRect.x;
 
     // Invert - calculate difference
+    const deltaX = startX - endX;
 
     // Play animation
+    onlyImg.style.setProperty("--delta-x", `${deltaX}px`);
     onlyImg.classList.add("animate-add");
+
     onlyImg.addEventListener("animationend", doneAnimateNewBall);
+
     function doneAnimateNewBall(event) {
         onlyImg.removeEventListener("animationend", doneAnimateNewBall);
         onlyImg.classList.remove("animate-add");
