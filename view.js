@@ -1,6 +1,6 @@
 import * as controller from "./controller.js";
-import { animateNewBall } from "./animations.js";
-export { init, updateDisplay, getVisualBallForModelNode };
+import { animateNewBall, animateCannonBall } from "./animations.js"; // Importér animateCannonBall
+export { animateNewBall, animateCannonBall, init, updateDisplay, getVisualBallForModelNode };
 
 // *********************************
 // *                               *
@@ -38,9 +38,6 @@ function updateDisplay(model) {
     const visualChain = document.querySelector("#chain");
     // remove everything
     visualChain.innerHTML = "";
-
-    // iterate through model of balls with the usual linked list method:
-    // - find the first, loop while it isn't null, inside the loop: find the next
 
     let ballNode = model.getFirstBall();
 

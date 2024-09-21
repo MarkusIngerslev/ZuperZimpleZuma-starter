@@ -2,7 +2,7 @@ import * as model from "./model.js";
 import * as view from "./view.js";
 
 // TODO: Export functions used by the view
-export { addNewBall, insertCannonBallAfter };
+export { addNewBall, insertCannonBallAfter, ballInserted };
 
 window.addEventListener("load", init);
 
@@ -45,24 +45,22 @@ function insertCannonBallAfter(ballNode) {
     const cannonBallColor = model.getCannonBall(); // Farve, f.eks. "🔴"
     const newCannonBallNode = model.insertBallAfter(ballNode, cannonBallColor); // Ny node
 
-    // Check for matches around the newly inserted cannonball
-    const matches = model.checkMatches(newCannonBallNode); // Send den faktiske node til checkMatches
-    console.log(matches);
-
-    // If there are 3 or more matches, remove them
-    if (matches.length >= 3) {
-        model.removeMatches(matches);
-    }
+    // Animate the cannonball
+    view.animateCannonBall(window.model, newCannonBallNode);
 
     // Load a new cannonball for future shots
     model.loadCannon();
-
-    // Update the display
-    view.updateDisplay(model);
-
-    return newCannonBallNode;
 }
 
 // **** ANIMATIONS ****
 
-// TODO: Add controller functions to be called when animations have completed
+function ballInserted(newBallNode) {
+    const matches = model.checkMatches(newBallNode);
+    console.log(matches);
+
+    if (matches.length >= 3) {
+        model.removeMatches(matches);
+    }
+
+    view.updateDisplay(model);
+}

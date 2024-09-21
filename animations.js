@@ -60,40 +60,39 @@ function animateExpandSpaceForBall(visualBall) {
  * Use FLIP animation to animate a ball from the position of the canonball
  */
 function animateCannonBall(model, newBall) {
-    // Start by updating the entire model
+    // Start med at opdatere hele visningen
     view.updateDisplay(model);
 
-    // Find the visualBall for this newBall
+    // Find visualBall for newBall i visningen
     const visualBall = view.getVisualBallForModelNode(newBall);
+    const ballImage = visualBall.querySelector("img"); // kun img-elementet
 
-    // Animate the space for the new ball
-    animateExpandSpaceForBall(visualBall);
-
-    // Do FLIP animation to move the newball from the position of the cannonball
-    // to the current position of the visualBall
-
-    // First: Find the starting position of the ball - which is where the cannonball is
+    // Find visualCannonBall (kanonkuglen)
     const visualCannonball = document.querySelector("#cannon .ball img");
 
-    // TODO: Find the position (x and y) of the visualCannonBall
+    // FIRST: Find startpositionen af kanonkuglen
+    const cannonRect = visualCannonball.getBoundingClientRect();
+    const startX = cannonRect.x;
+    const startY = cannonRect.y;
 
-    // Last: Find the destination position of the ball - which is where it has been added
-    const ballImage = visualBall.querySelector("img"); // only use the img, not the entire element with the button
+    // LAST: Find slutpositionen af den nyindsatte bold
+    const ballRect = ballImage.getBoundingClientRect();
+    const endX = ballRect.x;
+    const endY = ballRect.y;
 
-    // TODO: Find the position (x and y) of the ballImage
+    // INVERT: Beregn forskellen mellem start og slut
+    const deltaX = startX - endX;
+    const deltaY = startY - endY;
 
-    // Invert: calculate the distance to move from source to destination
-    const deltaX = 100; // TODO: Replace silly constant with actual distance
-    const deltaY = 100; // TODO: Replace silly constant with actual distance
-
-    // Play: run the animation from source to destination
-    ballImage.style.setProperty("--delta-x", deltaX + "px");
-    ballImage.style.setProperty("--delta-y", deltaY + "px");
+    // PLAY: Sæt --delta-x og --delta-y og start animationen
+    ballImage.style.setProperty("--delta-x", `${deltaX}px`);
+    ballImage.style.setProperty("--delta-y", `${deltaY}px`);
     ballImage.classList.add("animate-fromcannon");
 
-    // Hide the cannonball while animating
-    document.querySelector("#cannon .ball img").classList.add("hide");
+    // Gør kanonkuglen usynlig under animationen
+    visualCannonball.classList.add("hide");
 
+    // Når animationen er færdig, kaldes ballInserted
     ballImage.addEventListener("animationend", doneMoving);
 
     function doneMoving() {
@@ -102,10 +101,11 @@ function animateCannonBall(model, newBall) {
         ballImage.style.removeProperty("--delta-x");
         ballImage.style.removeProperty("--delta-y");
 
-        // Show the cannonball again, after animating
-        document.querySelector("#cannon .ball img").classList.remove("hide");
-        // TODO: Notify controller when ball has moved
-        console.log("Done moving canonball");
+        // Vis kanonkuglen igen
+        visualCannonball.classList.remove("hide");
+
+        // Kalder controllerens ballInserted funktion med den nye boldnode
+        controller.ballInserted(newBall);
     }
 }
 
