@@ -15,9 +15,6 @@ function init() {
 
 function addNewBall() {
     console.log("View clicked add new ball");
-    // notify controller
-    console.log("TODO: Notify controller that we want to add a new ball to the chain!");
-    // TODO: Notify controller that we want to add a new ball to the chain!
     controller.addNewBall();
 }
 
@@ -30,12 +27,11 @@ const visualBalls = {
 
 const modelToView = new Map();
 function getVisualBall(node) {
-  return modelToView.get 
+    return modelToView.get;
 }
 
 function updateDisplay(model) {
     // Update the entire chain
-
     const visualChain = document.querySelector("#chain");
     // remove everything
     visualChain.innerHTML = "";
@@ -43,10 +39,8 @@ function updateDisplay(model) {
     // iterate through model of balls with the usual linked list method:
     // - find the first, loop while it isn't null, inside the loop: find the next
 
-    // TODO: Find the first ball
     let ball = model.getFirstBall();
 
-    // TODO: loop while the ball isn't null
     while (ball != null) {
         // add visual ball
         const visualBall = createVisualBall(ball.data);
@@ -54,9 +48,8 @@ function updateDisplay(model) {
         // add button next to ball
         addButtonTo(visualBall, ball);
 
-        modelToView.set(ball, visualBall)
+        modelToView.set(ball, visualBall);
 
-        // TODO: find the next ball and loop the loop
         ball = model.getNextBall(ball);
     }
 
@@ -86,10 +79,8 @@ function addButtonTo(visualBall, ballModel) {
     // handle click
     button.addEventListener("click", () => {
         console.log(`Clicked button after ${ballModel.data}`);
-        console.log(ballModel);
-        // notify controller
-        console.log("TODO: Notify controller that we want to insert the cannonball after this!");
-        // TODO: Notify controller that we want to insert the cannonball after this!
+        //console.log(ballModel);
+        controller.insertCannonBallAfter(ballModel);
     });
 }
 

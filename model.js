@@ -47,8 +47,6 @@ function addBall(ball) {
     list.add(ball);
 }
 
-// TODO: Implement more functions
-
 function getFirstBall() {
     return list.head;
 }
@@ -77,13 +75,14 @@ function getCannonBall() {
 }
 
 // **** MATCHES ****
-// TODO: Implement functions to find and remove matches
 function checkMatches(node) {
     const matches = [node];
-    // find matches før node
+    console.log(`Starting check for node with data: ${node.data} and id: ${node.id}`);
 
+    // find matches før node
     let lookat = node.prev;
     while (lookat && lookat.data == node.data) {
+        console.log(`Found match before: ${lookat.data} (id: ${lookat.id})`);
         matches.push(lookat);
         lookat = lookat.prev;
     }
@@ -91,6 +90,7 @@ function checkMatches(node) {
     // find matches efter node
     lookat = node.next;
     while (lookat && lookat.data == node.data) {
+        console.log(`Found match after: ${lookat.data} (id: ${lookat.id})`);
         matches.push(lookat);
         lookat = lookat.next;
     }
@@ -127,6 +127,3 @@ function yellow() {
 function green() {
     return balls[3];
 }
-
-// Husk at fjern
-//debugger;

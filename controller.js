@@ -2,7 +2,7 @@ import * as model from "./model.js";
 import * as view from "./view.js";
 
 // TODO: Export functions used by the view
-export { addNewBall };
+export { addNewBall, insertCannonBallAfter };
 
 window.addEventListener("load", init);
 
@@ -28,11 +28,33 @@ function createInitialChain() {
     }
 }
 
-// TODO: Add controller functions to handle things happening in the view
+// Controller funktions for thing happening in view
 function addNewBall() {
     model.addRandomBall();
     view.updateDisplay(model);
 }
+
+function insertCannonBallAfter(ballNode) {
+    // Insert the cannonball after the given node
+    const cannonBallColor = model.getCannonBall(); // Farve, f.eks. "🔴"
+    const newCannonBallNode = model.insertBallAfter(ballNode, cannonBallColor); // Ny node
+
+    // Check for matches around the newly inserted cannonball
+    const matches = model.checkMatches(newCannonBallNode); // Send den faktiske node til checkMatches
+    console.log(matches);
+
+    // If there are 3 or more matches, remove them
+    if (matches.length >= 3) {
+        model.removeMatches(matches);
+    }
+
+    // Load a new cannonball for future shots
+    model.loadCannon();
+
+    // Update the display
+    view.updateDisplay(model);
+}
+
 // **** ANIMATIONS ****
 
 // TODO: Add controller functions to be called when animations have completed
