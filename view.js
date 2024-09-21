@@ -1,6 +1,6 @@
-// TODO: Import controller
 import * as controller from "./controller.js";
-export { init, updateDisplay };
+import { animateNewBall } from "./animations.js";
+export { animateNewBall, init, updateDisplay, getVisualBallForModelNode };
 
 // *********************************
 // *                               *
@@ -25,9 +25,10 @@ const visualBalls = {
     "🟢": "green-ball.png",
 };
 
-const modelToView = new Map();
-function getVisualBall(node) {
-    return modelToView.get;
+const nodeToVisualBall = new Map();
+
+function getVisualBallForModelNode(ballNode) {
+    return nodeToVisualBall.get(ballNode);
 }
 
 function updateDisplay(model) {
@@ -39,18 +40,18 @@ function updateDisplay(model) {
     // iterate through model of balls with the usual linked list method:
     // - find the first, loop while it isn't null, inside the loop: find the next
 
-    let ball = model.getFirstBall();
+    let ballNode = model.getFirstBall();
 
-    while (ball != null) {
+    while (ballNode != null) {
         // add visual ball
-        const visualBall = createVisualBall(ball.data);
+        const visualBall = createVisualBall(ballNode.data);
         visualChain.append(visualBall);
         // add button next to ball
-        addButtonTo(visualBall, ball);
+        addButtonTo(visualBall, ballNode);
 
-        modelToView.set(ball, visualBall);
+        nodeToVisualBall.set(ballNode, visualBall);
 
-        ball = model.getNextBall(ball);
+        ballNode = model.getNextBall(ballNode);
     }
 
     // Also update the cannonball
