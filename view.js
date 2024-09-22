@@ -1,6 +1,6 @@
 import * as controller from "./controller.js";
-import { animateNewBall, animateCannonBall } from "./animations.js"; // Importér animateCannonBall
-export { animateNewBall, animateCannonBall, init, updateDisplay, getVisualBallForModelNode };
+import { animateNewBall, animateCannonBall, animateRemoveBalls } from "./animations.js"; // Importér animateCannonBall
+export { animateNewBall, animateCannonBall, animateRemoveBalls, init, updateDisplay, getVisualBallForModelNode };
 
 // *********************************
 // *                               *

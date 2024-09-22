@@ -111,19 +111,25 @@ function animateCannonBall(model, newBall) {
 
 function animateRemoveBalls(model, balls) {
     // NOTE: Run the animation-implode animations BEFORE updating the view
-
     let first = true;
     const lastBall = balls[balls.length - 1];
     const nextBall = model.getNextBall(lastBall);
+
+    let animationsCompleted = 0;
+    const totalAnimations = balls.length;
+
     for (const ball of balls) {
-        const visualBall = view.getViewForModel(ball);
-        visualBall.classList.add("implode");
-        if (first) {
-            first = false;
-            visualBall.addEventListener("animationend", () => {
+        const visualBall = view.getVisualBallForModelNode(ball);
+        visualBall.classList.add("animate-implode");
+
+        visualBall.addEventListener("animationend", () => {
+            animationsCompleted++;
+            if (animationsCompleted === totalAnimations) {
+                // Når alle animationer er færdige, fjern boldene fra modellen
+                model.removeMatches(balls);
                 view.updateDisplay(model);
-                controller.matchesRemoved(nextBall);
-            });
-        }
+                controller.ballInserted(nextBall);
+            }
+        });
     }
 }

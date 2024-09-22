@@ -59,8 +59,9 @@ function ballInserted(newBallNode) {
     console.log(matches);
 
     if (matches.length >= 3) {
-        model.removeMatches(matches);
+        view.animateRemoveBalls(model, matches);
+        //model.removeMatches(matches);
+    } else {
+        view.updateDisplay(model);
     }
-
-    view.updateDisplay(model);
 }
